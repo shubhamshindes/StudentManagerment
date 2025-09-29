@@ -6,9 +6,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +21,10 @@ public class Student {
 	String lname;
 	@Column(name= "email",nullable=false)
 	String email;
-	@Column
+	@Column(name="age")
 	Integer age;
-	@Column
+	@Column(name="department")
 	String department;
+	
+		
 }
