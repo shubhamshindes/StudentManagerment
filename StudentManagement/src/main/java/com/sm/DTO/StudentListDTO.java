@@ -11,4 +11,12 @@ public class StudentListDTO {
 	@NotEmpty(message = "Student List Cannot be emoty")
 	private List<StudentDTO> students;
 
+	public List<StudentDTO> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<StudentDTO> students) {
+		this.students = students;
+	}
+
 }

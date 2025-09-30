@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sm.DTO.StudentDTO;
+import com.sm.DTO.StudentListDTO;
 import com.sm.service.StudentService;
 
 import jakarta.validation.Valid;
@@ -33,5 +34,17 @@ public class StudentController {
 
 	}
 	
+	@PostMapping("/batch")
+	public ResponseEntity<?> createStudents(@Valid @RequestBody List<StudentDTO> students)
+	{
+		try {
+			List<StudentDTO> savedStudents =stdservice.saveAllStudents(students);
+			return ResponseEntity.status(HttpStatus.CREATED).body(savedStudents);
+		}catch(RuntimeException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		
+		
+	}
 
 }
