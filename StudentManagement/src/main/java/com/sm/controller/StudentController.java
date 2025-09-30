@@ -24,7 +24,7 @@ public class StudentController {
 	@PostMapping
 	public ResponseEntity<?> addStudent(@Valid @RequestBody StudentDTO studentDTO) {
 		try {
-			StudentDTO savedStudent = stdservice.saveStudents(studentDTO);
+			StudentDTO savedStudent = stdservice.saveStudent(studentDTO);
 
 			return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
 		} catch (RuntimeException e) {

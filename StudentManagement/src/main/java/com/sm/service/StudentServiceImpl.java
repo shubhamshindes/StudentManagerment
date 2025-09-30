@@ -1,11 +1,15 @@
 package com.sm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sm.DTO.StudentDTO;
 import com.sm.entity.Student;
 import com.sm.repository.StudentRepository;
 
+import jakarta.transaction.Transactional;
+@Service
+@Transactional
 public class StudentServiceImpl implements StudentService{
 
 	@Autowired
