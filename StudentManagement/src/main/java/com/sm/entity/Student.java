@@ -1,6 +1,9 @@
 package com.sm.entity;
 
 import java.time.LocalDate;
+import java.util.stream.Stream;
+
+import com.sm.DTO.StudentDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -74,6 +77,7 @@ public class Student {
 	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
+	
 	
 	
 		

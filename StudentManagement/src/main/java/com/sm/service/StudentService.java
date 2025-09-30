@@ -12,6 +12,11 @@ public interface StudentService {
 
 	List<StudentDTO> saveAllStudents(List<StudentDTO> students);
 
+	List<StudentDTO> getListOfStudents();
+
+	StudentDTO getStudentById(Long id);
+
+
 	
 }
 	

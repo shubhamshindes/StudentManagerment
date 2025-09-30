@@ -10,7 +10,8 @@ import com.sm.DTO.StudentDTO;
 import com.sm.entity.Student;
 import com.sm.repository.StudentRepository;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 @Transactional
@@ -43,6 +44,13 @@ public class StudentServiceImpl implements StudentService {
 		return savedStds.stream().map(this::convertToDTO).collect(Collectors.toList());
 		
 	}
+	 @Override
+	 @Transactional(readOnly = true)
+	   	public List<StudentDTO> getListOfStudents() {
+	        return studentRepository.findAll().stream()
+	                .map(this::convertToDTO)
+	                .collect(Collectors.toList());
+	    }
 
 	private StudentDTO convertToDTO(Student student) {
 		StudentDTO dto = new StudentDTO();
@@ -81,4 +89,15 @@ public class StudentServiceImpl implements StudentService {
 	
 	 
 	}
+
+	@Override
+	public StudentDTO getStudentById(Long id) {
+	    Student student = studentRepository.findById(id)
+	            .orElseThrow(() -> new RuntimeException("Student not found with id: " + id));//findById(id) returns Optional<Student>, not Student.
+	    //so either we make Student optional or handle by Exception
+	    return convertToDTO(student);
+	    
+	    
+	}
+
 }
