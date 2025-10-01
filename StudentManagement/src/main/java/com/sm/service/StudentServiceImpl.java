@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.sm.DTO.StudentDTO;
@@ -98,6 +99,32 @@ public class StudentServiceImpl implements StudentService {
 	    return convertToDTO(student);
 	    
 	    
+	}
+	
+	@Override
+	public void deleteStudent(Long id) {
+		if(!studentRepository.existsById(id)) {
+			
+			throw new RuntimeException("Student not found by id "+id);
+		}
+		studentRepository.deleteById(id);
+		
+	}
+	
+	@Override
+	public StudentDTO updateStudent(Long id,StudentDTO studentDTO) {
+		Student existingStudent=studentRepository.findById(id).orElseThrow(()->new RuntimeException("Student not found by id :"+ id));
+		if(!existingStudent.getEmail().equals(studentDTO.getEmail())&&studentRepository.existsByEmail(studentDTO.getEmail())) {
+			throw new RuntimeException("Email already exist :"+studentDTO.getEmail());
+		}
+		 existingStudent.setFname(studentDTO.getFirstName());
+	        existingStudent.setLname(studentDTO.getLastName());
+	        existingStudent.setEmail(studentDTO.getEmail());
+	        existingStudent.setAge(studentDTO.getAge());
+	        existingStudent.setDob(studentDTO.getDateOfBirth());
+	        existingStudent.setDepartment(studentDTO.getDepartment());
+	        Student updatedStudent = studentRepository.save(existingStudent);
+	        return convertToDTO(updatedStudent);
 	}
 
 }
